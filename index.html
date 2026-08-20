@@ -348,6 +348,7 @@
                     <div class="detail-list">
                         <div class="detail-item"><span class="label">运营奖惩</span><span class="value" id="detOpsReward">0元</span></div>
                         <div class="detail-item"><span class="label">公会红包</span><span class="value positive" id="detGuildRed">0元</span></div>
+                        <div class="detail-item"><span class="label">收光奖励</span><span class="value positive" id="detLightReward">0元</span></div>
                         <div class="detail-item"><span class="label">最终提成</span><span class="value positive" id="detFinalCommission">0元</span></div>
                         <div class="detail-item"><span class="label">最终收益提成</span><span class="value positive" id="detFinalEarningsCommission">0元</span></div>
                     </div>
@@ -552,6 +553,7 @@
             const opsReward = getVal(record, '运营奖惩');
             setText('detOpsReward', fmtMoney(opsReward), opsReward < 0 ? 'negative' : 'positive');
             setText('detGuildRed', fmtMoney(getVal(record, '公会红包')));
+            setText('detLightReward', fmtMoney(getVal(record, '收光奖励')));
             setText('detFinalCommission', fmtMoney(getVal(record, '最终提成')));
             setText('detFinalEarningsCommission', fmtMoney(getVal(record, '最终收益提成')));
 
