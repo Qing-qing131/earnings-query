@@ -322,16 +322,8 @@
                     <div class="section-title">💰 收益汇总</div>
                     <div class="summary-grid">
                         <div class="summary-card">
-                            <div class="label">最终收益提成</div>
-                            <div class="value" id="sumFinalEarningsCommission">0元</div>
-                        </div>
-                        <div class="summary-card">
                             <div class="label">开票金额</div>
                             <div class="value" id="sumInvoice">0元</div>
-                        </div>
-                        <div class="summary-card">
-                            <div class="label">税后金额</div>
-                            <div class="value" id="sumAfterTax">0元</div>
                         </div>
                         <div class="summary-card">
                             <div class="label">最终补发金额</div>
@@ -550,9 +542,7 @@
             $('resultNick').textContent = (record['昵称'] || '--') + ' · ' + (record['经纪人'] || '--');
 
             // 收益汇总
-            setText('sumFinalEarningsCommission', fmtMoney(getVal(record, '最终收益提成')));
             setText('sumInvoice', fmtMoney(getVal(record, '开票金额')));
-            setText('sumAfterTax', fmtMoney(getVal(record, '税后金额')));
             setText('sumFinalMakeup', fmtMoney(getVal(record, '最终补发金额')));
 
             // 流水明细
