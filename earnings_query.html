@@ -277,7 +277,7 @@
             <div class="hero">
                 <div class="hero-icon">💰</div>
                 <h2>主播收益查询</h2>
-                <p>输入信息查看月结明细</p>
+                <p>输入房间号查看月结明细</p>
             </div>
 
             <div class="card">
@@ -285,16 +285,6 @@
                 <div class="form-group">
                     <label class="form-label">🏠 房间号</label>
                     <input type="text" id="roomInput" class="form-input" placeholder="请输入房间号">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">💰 支付宝账号</label>
-                    <input type="text" id="alipayInput" class="form-input" placeholder="请输入支付宝账号（可选）">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">📅 月份</label>
-                    <select id="monthSelect" class="form-select">
-                        <option value="May-26" selected>May-26</option>
-                    </select>
                 </div>
                 <div class="error-tip" id="errorTip">未找到该房间号的收益数据，请检查输入</div>
                 <button class="btn-primary" id="queryBtn">
@@ -5880,9 +5870,8 @@
                 return;
             }
             errorTip.style.display = 'none';
-            const month = $('monthSelect').value;
-            addRecent(room, month, record['昵称']);
-            showResult(record, month);
+            addRecent(room, record['昵称']);
+            showResult(record, 'May-26');
         }
 
         function backToQuery() {
@@ -5890,10 +5879,10 @@
             $('queryPage').classList.add('active');
         }
 
-        function addRecent(room, month, nick) {
+        function addRecent(room, nick) {
             let recent = JSON.parse(localStorage.getItem('earnings_recent') || '[]');
             recent = recent.filter(r => r.room !== room);
-            recent.unshift({ room, month, nick: nick || '', time: Date.now() });
+            recent.unshift({ room, nick: nick || '', time: Date.now() });
             if (recent.length > 5) recent = recent.slice(0, 5);
             localStorage.setItem('earnings_recent', JSON.stringify(recent));
             renderRecent();
@@ -5907,20 +5896,19 @@
                 return;
             }
             list.innerHTML = recent.map(r => `
-                <div class="recent-item" data-room="${r.room}" data-month="${r.month}">
+                <div class="recent-item" data-room="${r.room}">
                     <div class="recent-icon">💰</div>
                     <div class="recent-info">
-                        <div class="main">支付宝/昵称：${r.nick || r.room}</div>
+                        <div class="main">${r.nick || r.room}</div>
                         <div class="sub">房间 ${r.room}</div>
                     </div>
-                    <div class="recent-month">${r.month} ›</div>
+                    <div class="recent-month">›</div>
                 </div>
             `).join('');
 
             list.querySelectorAll('.recent-item').forEach(item => {
                 item.addEventListener('click', () => {
                     $('roomInput').value = item.dataset.room;
-                    $('monthSelect').value = item.dataset.month;
                     doQuery();
                 });
             });
